@@ -16,5 +16,14 @@ Výstupy obou stránek:
 
 ### [2) Přidání grafu k mapě](https://github.com/frantisekmuzik/YWEK_D3_Leaflet/commit/2a9164334042fc3d3c575f0b92ec5d813b123837)
 - překopírování kódu pro vykreslení grafu z *D3_YWEK_kod.html* do *index_geoJSON.html*
+- **další práce pokračuje v *index_geoJSON.html***
 
-### 3) Uspořádání UI stránky
+### [3) Uspořádání UI stránky](https://github.com/frantisekmuzik/YWEK_D3_Leaflet/commit/1e3db875efc507b67b7286b15ac7ee0834739ca5)
+- rozřazení do divů - mapa s popisem + graf s popupem
+- přidělení stylů pro divy kvůli správnému rozdělení stránky
+- přepsání výpočtu polohy popu-pu
+
+![](/img/obr2.png)
+
+# Užitečné odkazy:
+- práce s div: https://www.w3schools.com/html/html_div.asp
