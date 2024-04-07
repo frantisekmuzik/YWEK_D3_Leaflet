@@ -11,6 +11,13 @@
     <script src="leaflet.js"></script>
     <script src="leaflet_geoJSON.js"></script>
 
+    <!--Přidání JS knihovny z lokálního souboru - je nutné mít soubor ve stejném adresáři s html kódem-->
+    <!--Po přidání knihovny lokálně se zpřístupní našeptávání funkcí knihovny D3-->
+    <script src="d3.v7.js"></script> 
+
+    <!--Vložení JS kódu s grafem-->
+    <script src="d3_graf.js"></script>
+
 
 </head>
 <body>
@@ -67,6 +74,28 @@
             }
     </style>
 
+    <!--Style grafu-->
+    <style>
+        rect {
+        pointer-events: all;
+        fill-opacity: 0;
+        stroke-opacity: 0;
+        z-index: 1;
+        }
+
+        .popup {
+        position: absolute;
+        padding: 10px;
+        background-color: steelblue;
+        color: white;
+        border: 1px solid white;
+        border-radius: 10px;
+        display: none;
+        opacity: .70;
+        }
+
+    </style>
+
     <div id="mapa" class="leaflet-container" style="margin: 30px 30px 30px 30px;"></div>
 
     <script src="mapa_leaflet.js"></script>
@@ -97,6 +126,12 @@
             </script>
         </p>
     </div>
+
+    <!--Vytvoření divu, do kterého se bude vykreslovat graf-->
+    <div id="container"></div>
+
+    <!--Vytvoření divu, do kterého se bude vykreslovat popup-->
+    <div id="popup" ></div>
 
 
 
