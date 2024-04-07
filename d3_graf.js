@@ -100,8 +100,8 @@ listeningRect.on("mousemove", function (event) {
     // Vykreslení pop-upu 
     popup
     .style("display", "block")
-    .style("left", `${xPos + 20}px`) // Offset popupu oproti pozici myši
-    .style("top", `${yPos + 20}px`)
+    .style("right", `${width-xPos}px`) // Offset popupu oproti pozici myši - manuální přepis pozice -> NENÍ RESPONZIVNÍ!
+    .style("top", `${yPos}px`)
     .html(`<strong>Datum: </strong> ${d.datum.getFullYear()}<br><strong>HDP: </strong> ${d.hodnota.toLocaleString()} Kč`)
 });
 

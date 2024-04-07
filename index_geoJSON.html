@@ -37,6 +37,23 @@
         .leaflet-touch .leaflet-control-attribution {
             display: none;
         }
+
+        .left-part {
+            width: 50%;
+            float: left;
+            padding: 2px;
+            
+            /*border: 2px solid red;*/
+        }
+
+        .right-part {
+            width: 40%;
+            float:right;
+            padding: 2px;
+            margin: 30px 30px 30px 30px;
+            /*border: 2px solid red;*/
+        }
+
     </style>
 
     <style>
@@ -96,42 +113,52 @@
 
     </style>
 
-    <div id="mapa" class="leaflet-container" style="margin: 30px 30px 30px 30px;"></div>
+    <div>
+        <div class="left-part">
+            <div id="mapa" class="leaflet-container" style="margin: 30px 30px 30px 30px;"></div>
+    
+            <script src="mapa_leaflet.js"></script>
+        
+            <div id="pod_mapou" style="margin: 30px 30px 30px 30px;">
+                <h1>
+                    Pěkná mapa v Leaflet
+                </h1>
+                <p>
+                    Zde si můžete přepnout mapu:
+                    <br><br>
+        
+                    <!-- TLAČÍTKO PRO PŘEPÍNÁNÍ VRSTEV MIMO MAPU -->
+        
+                    <button id="prepnoutMapy">Přepnout mapy</button>
+                    <script>
+                const prepTlacitko = document.getElementById("prepnoutMapy");
+                prepTlacitko.addEventListener('click', function() {
+        
+                if (map.hasLayer(tileLayer1)) {
+                    map.removeLayer(tileLayer1);
+                    map.addLayer(tileLayer2);
+                } else {
+                    map.removeLayer(tileLayer2);
+                    map.addLayer(tileLayer1);
+                }
+                });
+                    </script>
+                </p>
+            </div>
+    
+        </div>
+    
+        <div class="right-part">
+            <!--Vytvoření divu, do kterého se bude vykreslovat graf-->
+            <div id="container"></div>
+    
+            <!--Vytvoření divu, do kterého se bude vykreslovat popup-->
+            <div id="popup" ></div>
+    
+        </div>
 
-    <script src="mapa_leaflet.js"></script>
-
-    <div id="pod_mapou" style="margin: 30px 30px 30px 30px;">
-        <h1>
-            Pěkná mapa v Leaflet
-        </h1>
-        <p>
-            Zde si můžete přepnout mapu:
-            <br><br>
-
-            <!-- TLAČÍTKO PRO PŘEPÍNÁNÍ VRSTEV MIMO MAPU -->
-
-            <button id="prepnoutMapy">Přepnout mapy</button>
-            <script>
-        const prepTlacitko = document.getElementById("prepnoutMapy");
-        prepTlacitko.addEventListener('click', function() {
-
-        if (map.hasLayer(tileLayer1)) {
-            map.removeLayer(tileLayer1);
-            map.addLayer(tileLayer2);
-        } else {
-            map.removeLayer(tileLayer2);
-            map.addLayer(tileLayer1);
-        }
-        });
-            </script>
-        </p>
     </div>
 
-    <!--Vytvoření divu, do kterého se bude vykreslovat graf-->
-    <div id="container"></div>
-
-    <!--Vytvoření divu, do kterého se bude vykreslovat popup-->
-    <div id="popup" ></div>
 
 
 
