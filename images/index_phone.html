@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/miscellaneous-144-color-shadow/128/regional_territorial_geographical_map_pointer_gps_location_route_navigation-512.png" />
+
+    <title>Pokusná mobilní mapa v Leaflet</title>
+
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 100%;
+		    width: 100%;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	
+        body { 
+            padding: 0; margin: 0; 
+            } 
+        #map { height: 100%; width: 100vw; }
+
+        .leaflet-container leaflet-bottom-attribution {right: -180px;}
+
+        
+    </style>
+
+</head>
+<body>
+
+<div id='mapa'></div>
+
+<script>
+	const map = L.map('mapa').fitWorld();
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	function onLocationFound(e) {
+		const radius = Math.round((e.accuracy / 2),0);
+
+	//	const locationMarker = L.marker(e.latlng).addTo(map)
+	//		.bindPopup(`Nyní jste v rámci ${radius}metrového okruhu od tohoto místa<br><br><img src="https://www.mysecuritysign.com/img/lg/K/we-can-see-you-sign-k-9942.gif" style="width:80px"></img>`).openPopup();
+
+    const locationMarker = L.marker(e.latlng).addTo(map).bindPopup(`
+    <div style="display: flex; align-items: center;">
+      <div style="flex: 1;">
+        Nyní jste v rámci ${radius}metrového okruhu od tohoto místa<br><br>Přesnost se může lišit v závislosti na tom, jak přesně vás lokalizuje náš Velký bratr.
+      </div>
+      <div style="margin-left: 10px;">
+        <img src="https://www.mysecuritysign.com/img/lg/K/we-can-see-you-sign-k-9942.gif" style="width:80px"></img>
+      </div>
+    </div>
+    `).openPopup();
+
+	const locationCircle = L.circle(e.latlng, radius).addTo(map);
+	}
+
+	function onLocationError(e) {
+		alert(e.message);
+	}
+
+	map.on('locationfound', onLocationFound);
+	map.on('locationerror', onLocationError);
+
+	map.locate({setView: true, maxZoom: 16});
+</script>
+
+
+
+</body>
+</html>

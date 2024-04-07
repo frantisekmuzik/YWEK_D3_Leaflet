@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-flat/512/World-Map-Flat-icon.png" />
+ 
+    <!--<link rel="icon" href="images/marker-icon.png" />-->
+ 
+    <title>Pokusná mapa v Leaflet</title>
+
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/miscellaneous-144-color-shadow/128/regional_territorial_geographical_map_pointer_gps_location_route_navigation-512.png" />
+    
+        <title>Pokusná mapa v Leaflet</title>
+    
+        <link rel="stylesheet" href="leaflet.css" />
+        <script src="leaflet.js"></script>
+    
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+            .leaflet-container {
+                height: 600px;
+                width: 900px;
+                max-width: 100%;
+                max-height: 100%;
+                }
+
+            .leaflet-touch .leaflet-control-attribution
+            {display: none;}
+   
+        </style>
+        
+    </head>
+    <body>
+    
+    <div id="mapa" class="leaflet-container" style="margin: 30px 30px 30px 30px;"></div>
+       
+    <script>
+    
+        const map = L.map('mapa').setView([50.12, 14.4], 14);
+    
+        const tileLayer1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const tileLayer2 = L.tileLayer('https://www.chartae-antiquae.cz/TMS/Military2/{z}/{x}/{y}');
+    
+    // BODÍKY, POLYGONY
+
+    const marker = L.marker([50.1040, 14.3907])
+    .addTo(map).bindPopup(`<strong>Ahoj.</strong><br />Já jsem pop-up.<br>Právě jsem v  NTK.`).openPopup();
+/*
+    const circle = L.circle([50.1007, 14.3955], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 300
+    }).addTo(map).bindPopup('Já jsem pan Kruh.');
+
+    const polygon = L.polygon([
+    [50.1130, 14.3939],
+    [50.0963, 14.3960],
+    [50.0998, 14.4219]
+    ]).addTo(map).bindPopup('Já jsem pan Trojúhelník. <br> Pode mnou je celá <br> <img src="https://09d275b833.clvaw-cdnwnd.com/eaa1e712dd595844d843a18c195796ef/200003998-6988469887/bubenec-cervena-cerna.jpeg" style="width:150px"></img>');
+*/
+
+    // KLIKATELNÝ POP-UP    
+
+    const popup = L.popup()
+		.setLatLng([50.0941, 14.3885])
+		.setContent('Já jsem pop-up. Zde je Muzeum MHD.')
+		.openOn(map);
+
+
+    // POP-UP VYPISUJÍCÍ POLOHU
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`Klikli jste na pozici ${e.latlng.toString()}`)
+			.openOn(map);
+	    }
+
+	map.on('click', onMapClick);
+
+
+    const LeafIcon = L.Icon.extend({
+		options: {
+			shadowUrl: 'images/leaflet-stin.png',
+			iconSize:     [38, 95],
+			shadowSize:   [50, 64],
+			iconAnchor:   [22, 94],
+			shadowAnchor: [4, 62],
+			popupAnchor:  [-3, -76]
+		}
+	});
+
+	const modryListek = new LeafIcon({iconUrl: 'images/leaflet-modry.png'});
+    const zelenyListek = new LeafIcon({iconUrl: 'images/leaflet-zeleny.png'});
+	const cervenyListek = new LeafIcon({iconUrl: 'images/leaflet-cerveny.png'});
+	const oranzListek = new LeafIcon({iconUrl: 'images/leaflet-oranz.png'});
+
+	const bodZel = L.marker([50.1057, 14.4090], {icon: zelenyListek}).bindPopup('Zde je Stromovka.').addTo(map);
+    const bodModr = L.marker([50.1040, 14.3945], {icon: modryListek}).bindPopup(`Zde je <span style="color:blue"><strong> modrá menza</strong></span>.`).addTo(map);
+    
+  // ZMĚNA ZOOMU IKONKY
+  //  
+  //  map.on('zoomend', function() {
+  // 
+  //      const currentZoom = map.getZoom();
+  //      const novaVelikost = [38 * (currentZoom / 14), 95 * (currentZoom / 14)];
+  //      const novyAnchorPoint = [22 / 38 * 38 * (currentZoom / 14), 94 / 95 * 95 * (currentZoom / 14)];
+  //      modryListek.options.iconSize = novaVelikost;
+  //      modryListek.options.iconAnchor = novyAnchorPoint;
+  //
+  //      bodModr.setIcon(modryListek);
+  //  });
+    
+	const bodCerv = L.marker([50.1056, 14.3888], {icon: cervenyListek}).bindPopup(`Zde je <span style="color:red"><strong> červená menza</strong></span>.`).addTo(map);
+	const bodOranz = L.marker([50.0987, 14.3876], {icon: oranzListek}).bindPopup('Zde není nic.').addTo(map);
+
+
+        // MULTI-PIN – LAYER CLASS
+/*
+    var klubovna = L.marker([50.09826, 14.38855]).bindPopup('<strong>bar Klubovna</strong><br><br><img src="https://klubovna.povalec.cz/img/frontend/logo.png" style="width:150px"></img>');
+    
+    var cervenyMarker = L.icon({
+    iconUrl: 'images/marker-icon-red.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var zelenyMarker = L.icon({
+    iconUrl: 'images/marker-icon-green.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var fialovyMarker = L.icon({
+    iconUrl: 'images/marker-icon-violet.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var oaza = L.marker([50.10068, 14.38486], { icon: zelenyMarker })
+    .bindPopup('<strong>Billiard Club Oáza</strong><br><br><img src="images/logo-oaza.jpg" style="width:150px"></img>');
+
+    var ntk = L.marker([50.10389, 14.39024], { icon: fialovyMarker })
+    .bindPopup('<strong>Café Prostoru_</strong><br><br><img src="https://cafe.prostoru.cz/wp-content/themes/time/images/logo.png" style="width:150px"></img>');
+
+    var topoly = L.marker([50.10672, 14.39500], { icon: cervenyMarker })
+    .bindPopup('<strong>restaurace U Topolů</strong><br><br><img src="https://www.utopolu.cz/img/logo.png" style="width:150px"></img>');
+
+
+    var hospody = L.layerGroup([klubovna, oaza, ntk, topoly]);
+    hospody.addTo(map);
+
+*/
+
+    </script>
+    
+<div id="pod_mapou" style="margin: 30px 30px 30px 30px;">
+    <h1>
+      Pěkná mapa v Leaflet
+    </h1>
+    <p>
+      Zde si můžete přepnout mapu: 
+      <br><br>
+    
+    <!-- TLAČÍTKO PRO PŘEPÍNÁNÍ VRSTEV MIMO MAPU -->
+
+      <button id="prepnoutMapy">Přepnout mapy</button>
+      <script>
+        const prepTlacitko = document.getElementById('prepnoutMapy');
+        prepTlacitko.addEventListener('click', function() {
+   
+        if (map.hasLayer(tileLayer1)) {
+            map.removeLayer(tileLayer1);
+            map.addLayer(tileLayer2);
+        } else { 
+            map.removeLayer(tileLayer2);
+            map.addLayer(tileLayer1);
+        }
+        });
+      </script>
+    </p>
+</div>
+
+</body>
+</html>

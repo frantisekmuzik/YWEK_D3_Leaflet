@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/miscellaneous-144-color-shadow/128/regional_territorial_geographical_map_pointer_gps_location_route_navigation-512.png" />
+
+    <title>Pokusná mapa v Leaflet</title>
+
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+
+    <style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 600px;
+			width: 900px;
+			max-width: 100%;
+			max-height: 100%;
+            }
+
+//      .leaflet-touch .leaflet-control-attribution
+//      {display: none;}
+
+	</style>
+
+	
+</head>
+<body>
+
+
+
+<div id="mapa" class="leaflet-container" style="margin: 30px 30px 30px 30px;"></div>
+
+
+<script> 
+
+    
+    // MULTI-PIN – LAYER CLASS
+
+    var klubovna = L.marker([50.09826, 14.38855]).bindPopup('<strong>bar Klubovna</strong><br><br><img src="https://klubovna.povalec.cz/img/frontend/logo.png" style="width:150px"></img>');
+    
+    var cervenyMarker = L.icon({
+    iconUrl: 'images/marker-icon-red.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var zelenyMarker = L.icon({
+    iconUrl: 'images/marker-icon-green.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var fialovyMarker = L.icon({
+    iconUrl: 'images/marker-icon-violet.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var oaza = L.marker([50.10068, 14.38486], { icon: zelenyMarker })
+    .bindPopup('<strong>Billiard Club Oáza</strong><br><br><img src="images/logo-oaza.jpg" style="width:150px"></img>');
+
+    var ntk = L.marker([50.10389, 14.39024], { icon: fialovyMarker })
+    .bindPopup('<strong>Café Prostoru_</strong><br><br><img src="https://cafe.prostoru.cz/wp-content/themes/time/images/logo.png" style="width:150px"></img>');
+
+    var topoly = L.marker([50.10672, 14.39500], { icon: cervenyMarker })
+    .bindPopup('<strong>restaurace U Topolů</strong><br><br><img src="https://www.utopolu.cz/img/logo.png" style="width:150px"></img>');
+
+
+    var hospody = L.layerGroup([klubovna, oaza, ntk, topoly]);
+
+
+
+
+
+
+    // VLOŽENÍ MAPY S VRSTVAMI
+
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+        });
+
+    var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+        });
+
+    
+    var baseMaps = {
+        "OpenStreetMap": osm,
+        "OpenStreetMap.HOT": osmHOT,
+        };
+
+    var overlayMaps = {
+        "Hospody": hospody
+        };
+        
+    var map = L.map('mapa', {
+        center: [50.12, 14.4],
+        zoom: 14,
+        layers: [osm, hospody]
+        });
+
+    var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+/*    
+    var khakiMarker = L.icon({
+    iconUrl: 'images/marker-icon-khaki.png',
+    iconSize: [25, 41], 
+    iconAnchor: [12, 40], 
+    popupAnchor: [12, 20] 
+    });
+
+    var lavicka_vanka = L.marker([50.10334, 14.39043], { icon: khakiMarker });
+    var lavicka_01 = L.marker([50.10188, 14.38748], { icon: khakiMarker });
+
+    var lavicky = L.layerGroup([lavicka_vanka, lavicka_01]);
+
+    
+    var openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors, SRTM | styl: © OpenTopoMap (CC-BY-SA)'
+        });
+
+    layerControl.addBaseLayer(openTopoMap, "OpenTopoMap");
+    layerControl.addOverlay(lavicky, "Lavičky");    
+*/
+
+
+
+</script>
+
+<div id="pod_mapou" style="margin: 30px 30px 30px 30px;">
+    <h1>
+      Pěkná mapa v Leaflet
+    </h1>
+    <p>
+      Pokusný odstavec. 
+      <br><br>
+
+      <!-- TLAČÍTKO PRO PŘEPÍNÁNÍ VRSTEV MIMO MAPU
+
+      <button id="prepnoutMapy">Přepnout mapy</button>
+      <script>
+        const prepTlacitko = document.getElementById('prepnoutMapy');
+        prepTlacitko.addEventListener('click', function() {
+   
+        if (map.hasLayer(tileLayer1)) {
+            map.removeLayer(tileLayer1);
+            map.addLayer(tileLayer2);
+        } else { 
+            map.removeLayer(tileLayer2);
+            map.addLayer(tileLayer1);
+        }
+        });
+      </script>
+      -->
+    </p>
+</div>
+
+  </body>
+</html>
