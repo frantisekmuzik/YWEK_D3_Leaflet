@@ -33,6 +33,11 @@ Výstupy obou stránek:
 
 ![](/img/obr3.png)
 
+### 5) Vizualizace diagramu pomocí D3
+- skrytí vykreslování bodových znaků ORP
+- nastavení vykreslení diagramů
+
+**DÚ - opravit vykreslení kartogramu**
 
 # Užitečné odkazy:
 - práce s div: https://www.w3schools.com/html/html_div.asp
