@@ -51,6 +51,7 @@ fillOpacity: 0.8
 };
 
 
+// Pop-up s informacemi o prvku
 const info = L.control();
 
 info.onAdd = function (map) {
@@ -59,7 +60,7 @@ this.update();
 return this._div;
 };
 
-
+// Výpis pop-upu
 info.update = function (props) {
 const contents = props ? `<b>${props.NAZEV}</b><br />${props.HUSTOTA} obyv. / km<sup>2</sup>` : 'Přejeďte nad ORP';
 this._div.innerHTML = `<h4>Hustota obyvatelstva</h4>${contents}`;
@@ -68,6 +69,7 @@ this._div.innerHTML = `<h4>Hustota obyvatelstva</h4>${contents}`;
 
 info.addTo(map);
 
+// Intervaly a barvy legendy kartogramu
 function getColor(d) {
 return d > 2000 ? '#4a1486' :
     d > 1000  ? '#6a51a3' :
@@ -77,6 +79,7 @@ return d > 2000 ? '#4a1486' :
     d > 80   ? '#dadaeb' : '#f2f0f7';
 }
 
+// Vytvoření sybmologie kartogramu
 function kartogram(feature) {
 return {
     weight: 2,
@@ -98,16 +101,25 @@ layer.setStyle({
     fillOpacity: 0.7
 });
 
-layer.bringToFront();
+// Vypnutí kartogramů jako první vrstvy v pořadí
+// layer.bringToFront();
 
 info.update(layer.feature.properties);
 }
 
-
+// Přidání dat z geoJSONu do mapy - kartogram
 geojson = L.geoJSON(ORP, {
 style: kartogram,
 onEachFeature: onEachFeature
 }).addTo(map);
+
+// Přidání dat z geoJSONu do mapy - body ORP
+body = L.geoJSON(ORP_body, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions); // Využití již dříve importovaného stylu pro marker
+    }
+}).addTo(map).bringToFront();
+
 
 function resetHighlight(e) {
 geojson.resetStyle(e.target);
@@ -126,7 +138,7 @@ layer.on({
 });
 }
 
-
+// Určení pozice legendy
 const legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
