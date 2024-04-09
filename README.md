@@ -25,5 +25,18 @@ Výstupy obou stránek:
 
 ![](/img/obr2.png)
 
+### [4) Import bodové vrstvy ORP](https://github.com/frantisekmuzik/YWEK_D3_Leaflet/commit/2bac49f23da49c0d098651e81b0b17a3e1d7392e)
+- úprava geoJSONu + propojení s html
+- import geoJSON bodů ORP do mapy jako nová vrstva 
+- nastavení symbologie vrsty
+- posun vrstvy na první místo vykreslování v mapě
+
+![](/img/obr3.png)
+
+
 # Užitečné odkazy:
 - práce s div: https://www.w3schools.com/html/html_div.asp
+- mapová vizualizace přímo z D3: https://observablehq.com/@coachman/week-11-intro-to-d3-js-mapping-data-with-d3
+- Leaflet + D3 popup: https://gist.github.com/Andrew-Reid/11602fac1ea66c2a6d7f78067b2deddb#file-thumbnail-png
+- D3 + Leaflet: https://observablehq.com/@sfu-iat355/intro-to-leaflet-d3-interactivity
+- Leaflet - načtení geoJSON: https://leafletjs.com/examples/geojson/
