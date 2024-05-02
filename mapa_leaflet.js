@@ -150,12 +150,13 @@ function createPieCharts() {
     const overlayPane = map.getPanes().overlayPane; // Načtení mapových skupin
     const svg = d3.select(overlayPane).select('svg');
     
-    // Propojední s daty
-    const pies = svg.selectAll('g')
+    // Propojení s daty
+    const pies = svg.selectAll('g.pie-chart')
         .data(bodyData)
         .enter()
         .append('g')
-        .attr('opacity', 0.8);
+        .attr('opacity', 0.8)
+        .attr('class', 'pie-chart'); // Přidání třídy pro identifikaci Pie chartů
 
     // Nastavení velikosti jednotlivých diagramů
     const arcGenerate = d3.arc()
@@ -183,7 +184,7 @@ function updatePieCharts() {
     const overlayPane = map.getPanes().overlayPane;
     const svg = d3.select(overlayPane).select('svg');
 
-    svg.selectAll('g')
+    svg.selectAll('g.pie-chart')
         .attr('transform', d => {
             const point = map.latLngToLayerPoint([d.geometry.coordinates[1], d.geometry.coordinates[0]]);
             return `translate(${point.x}, ${point.y})`;
