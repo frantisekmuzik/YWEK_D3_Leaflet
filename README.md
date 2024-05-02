@@ -33,11 +33,14 @@ Výstupy obou stránek:
 
 ![](/img/obr3.png)
 
-### 5) Vizualizace diagramu pomocí D3
+### [5) Vizualizace diagramu pomocí D3](https://github.com/frantisekmuzik/YWEK_D3_Leaflet/commit/ee3ec6f01cdb9d4acd56570195b884dbcfdcd5e7)
 - skrytí vykreslování bodových znaků ORP
 - nastavení vykreslení diagramů
 
-**DÚ - opravit vykreslení kartogramu**
+### [6) Oprava vykreslení grafů](https://github.com/frantisekmuzik/YWEK_D3_Leaflet/commit/1bd438fe98b366759181d780dad94db0d324fdb6)
+-  oprava vykreslování grafů v mapě
+
+![](/img/obr4.png)
 
 # Užitečné odkazy:
 - práce s div: https://www.w3schools.com/html/html_div.asp
